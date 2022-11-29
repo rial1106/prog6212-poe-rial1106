@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Study_Tracker.Data;
 using Study_Tracker.Models;
 using System.Diagnostics;
 
@@ -11,14 +12,19 @@ namespace Study_Tracker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly Study_TrackerContext context;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+            List<Module> modules = await context.Module.Where(b => b.Username == CurrentProfile.user.Username).ToListAsync();
+
+
             return View();
         }
 
