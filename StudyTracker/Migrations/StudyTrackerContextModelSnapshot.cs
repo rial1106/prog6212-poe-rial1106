@@ -52,6 +52,7 @@ namespace StudyTracker.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("moduleCode");
@@ -103,16 +104,22 @@ namespace StudyTracker.Migrations
 
             modelBuilder.Entity("Study_Tracker.Models.Module", b =>
                 {
-                    b.HasOne("Study_Tracker.Models.User", null)
+                    b.HasOne("Study_Tracker.Models.User", "user")
                         .WithMany("modules")
-                        .HasForeignKey("username");
+                        .HasForeignKey("username")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Study_Tracker.Models.StudyDate", b =>
                 {
-                    b.HasOne("Study_Tracker.Models.Module", null)
+                    b.HasOne("Study_Tracker.Models.Module", "module")
                         .WithMany("studyDates")
                         .HasForeignKey("moduleCode");
+
+                    b.Navigation("module");
                 });
 
             modelBuilder.Entity("Study_Tracker.Models.Module", b =>
