@@ -42,9 +42,11 @@ namespace Study_Tracker.Controllers
 
             if (userDB != null)
             {
+                CurrentProfile.user = user;
                 List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userDB.username)
+                    new Claim(ClaimTypes.NameIdentifier, userDB.username),
+                    new Claim("OtherProperties", "Example Role")
                 };
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -52,7 +54,7 @@ namespace Study_Tracker.Controllers
                 AuthenticationProperties properties = new AuthenticationProperties()
                 {
                     AllowRefresh = true,
-                    IsPersistent = false,
+                    IsPersistent = true,
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -87,6 +89,7 @@ namespace Study_Tracker.Controllers
                 }
 
                 // Log In User
+                CurrentProfile.user = user;
                 List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.username),
