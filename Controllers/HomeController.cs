@@ -1,28 +1,30 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Study_Tracker.Data;
 using Study_Tracker.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Study_Tracker.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly Study_TrackerContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(Study_TrackerContext context)
         {
-            _logger = logger;
+            this.context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-
-            List<Module> modules = await context.Module.Where(b => b.Username == CurrentProfile.user.Username).ToListAsync();
+            
+            List<Module> modules = await context.Module.Where(a=> a.user.username == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
 
 
             return View();
