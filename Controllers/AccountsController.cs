@@ -42,6 +42,7 @@ namespace Study_Tracker.Controllers
 
             if (userDB != null)
             {
+                CurrentProfile.user = user;
                 List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, userDB.username),
@@ -88,6 +89,7 @@ namespace Study_Tracker.Controllers
                 }
 
                 // Log In User
+                CurrentProfile.user = user;
                 List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.username),
