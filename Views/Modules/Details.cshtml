@@ -1,0 +1,60 @@
+﻿@model Study_Tracker.Models.Module
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Module</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.moduleName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.moduleName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.credits)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.credits)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.classHoursPerWeek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.classHoursPerWeek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.hoursStudiedToday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.hoursStudiedToday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.hoursStudiedThisWeek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.hoursStudiedThisWeek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.semesterNumOfWeeks)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.semesterNumOfWeeks)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.semesterStartDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.semesterStartDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.moduleCode">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

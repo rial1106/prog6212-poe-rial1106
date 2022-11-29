@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Study_Tracker.Models.Module>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.moduleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.classHoursPerWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hoursStudiedToday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hoursStudiedThisWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.semesterNumOfWeeks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.semesterStartDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.moduleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.classHoursPerWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hoursStudiedToday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hoursStudiedThisWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.semesterNumOfWeeks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.semesterStartDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.moduleCode">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.moduleCode">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.moduleCode">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
