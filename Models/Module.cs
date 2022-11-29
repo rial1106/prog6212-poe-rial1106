@@ -20,6 +20,7 @@ namespace Study_Tracker.Models
         [NotMapped]
         public double? percentageCompleted { get; set; } // Percentage of hours studied towards recommendedStudyHours for the ProgressBar.
 
-        public ICollection<StudyDate> studyDates { get; set; } = null!;
+        public virtual User user { get; set; } = null!;
+        public virtual ICollection<StudyDate>? studyDates { get; set; } = null!;
     }
 }

@@ -12,6 +12,6 @@ namespace Study_Tracker.Models
         public string username { get; set; } = null!; // The logged in Username.
         [MaxLength(64)]
         public string password { get; set; } = null!; // The password.
-        public ICollection<Module>? modules { get; set; } // The modules
+        public virtual ICollection<Module>? modules { get; set; } // The modules
     }
 }
