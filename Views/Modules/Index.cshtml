@@ -13,25 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.moduleName)
+                Module Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.credits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.classHoursPerWeek)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.hoursStudiedToday)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.hoursStudiedThisWeek)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.semesterNumOfWeeks)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.semesterStartDate)
+                Module Code
             </th>
             <th></th>
         </tr>
@@ -43,22 +28,7 @@
                 @Html.DisplayFor(modelItem => item.moduleName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.credits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.classHoursPerWeek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.hoursStudiedToday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.hoursStudiedThisWeek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.semesterNumOfWeeks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.semesterStartDate)
+                @Html.DisplayFor(modelItem => item.moduleCode)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.moduleCode">Edit</a> |
