@@ -52,13 +52,13 @@ namespace Study_Tracker.Controllers
                 AuthenticationProperties properties = new AuthenticationProperties()
                 {
                     AllowRefresh = true,
-                    IsPersistent = true,
+                    IsPersistent = false
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity), properties);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Modules");
             }
 
             ViewData["ValidateMessage"] = "User not found!";
@@ -103,7 +103,7 @@ namespace Study_Tracker.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity), properties);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Modules");
             }
             
             
