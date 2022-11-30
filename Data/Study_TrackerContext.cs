@@ -18,6 +18,7 @@ namespace Study_Tracker.Data
         public DbSet<Study_Tracker.Models.User> User { get; set; } = default!;
 
         public DbSet<Study_Tracker.Models.Module> Module { get; set; }
+        public DbSet<Study_Tracker.Models.StudyDate> StudyDate { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
