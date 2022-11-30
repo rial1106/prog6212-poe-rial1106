@@ -27,7 +27,7 @@ namespace Study_Tracker.Controllers
             List<Module> modules = await context.Module.Where(a=> a.user.username == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
 
 
-            return View();
+            return View(modules);
         }
 
         public IActionResult Privacy()
