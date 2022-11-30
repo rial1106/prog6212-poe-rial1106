@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +23,9 @@ namespace Study_Tracker.Controllers
         // GET: Modules
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Module.ToListAsync());
+            IEnumerable<Module> modules = await _context.Module.Where(a => a.user.username == User.FindFirstValue(ClaimTypes.NameIdentifier)).Include("studyDates").ToListAsync();
+       
+            return View(modules);
         }
 
         // GET: Modules/Details/5
