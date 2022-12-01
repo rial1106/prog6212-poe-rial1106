@@ -13,15 +13,16 @@ namespace Study_Tracker.Models
         public string moduleName { get; set; } = null!; // Module name.
         public int credits { get; set; } // Module credits.
         public double classHoursPerWeek { get; set; } // The number of class hours there are for a week.
+        [NotMapped]
         private double? hoursStudiedThisWeek; // How many hours studied this week.
-        private double? recommendedStudyHours; // How many hours you should self study as per the formula.
         public int semesterNumOfWeeks { get; set; } // How many weeks in a semester
         public DateTime semesterStartDate { get; set; } // When does the semester starts
 
         public virtual User user { get; set; } = null!;
         public virtual ICollection<StudyDate>? studyDates { get; set; } = null!;
 
-        public double? HoursStudiedThisWeek
+        [NotMapped]
+        public double HoursStudiedThisWeek
         {
             get
             {
@@ -42,7 +43,7 @@ namespace Study_Tracker.Models
 
             set
             {
-                hoursStudiedThisWeek = value;
+                HoursStudiedThisWeek = value;
             }
         }
 
@@ -60,7 +61,8 @@ namespace Study_Tracker.Models
             return d1 == d2;
         }
 
-        public double? RecommendedStudyHours
+        [NotMapped]
+        public double RecommendedStudyHours
         {
             get
             {
@@ -69,7 +71,7 @@ namespace Study_Tracker.Models
 
             set
             {
-                recommendedStudyHours = value;
+                RecommendedStudyHours = value;
             }
         }
     }
