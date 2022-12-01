@@ -28,17 +28,17 @@ namespace StudyTracker.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<double?>("HoursStudiedThisWeek")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RecommendedStudyHours")
+                        .HasColumnType("float");
+
                     b.Property<double>("classHoursPerWeek")
                         .HasColumnType("float");
 
                     b.Property<int>("credits")
                         .HasColumnType("int");
-
-                    b.Property<double?>("hoursStudiedThisWeek")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("hoursStudiedToday")
-                        .HasColumnType("float");
 
                     b.Property<string>("moduleName")
                         .IsRequired()
