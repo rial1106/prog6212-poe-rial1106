@@ -123,17 +123,20 @@ namespace Study_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("moduleCode,moduleName,credits,classHoursPerWeek,hoursStudiedThisWeek,semesterNumOfWeeks,semesterStartDate")] Module @module)
+        public async Task<IActionResult> Edit(string id, [Bind("moduleCode,moduleName,credits,classHoursPerWeek,semesterNumOfWeeks,semesterStartDate")] Module @module)
         {
             if (id != @module.moduleCode)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("user");
             if (ModelState.IsValid)
             {
                 try
                 {
+                    User _user = await _context.User.FirstAsync(a => a.username == User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    module.user = _user;
                     _context.Update(@module);
                     await _context.SaveChangesAsync();
                 }

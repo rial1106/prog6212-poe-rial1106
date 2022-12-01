@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit @Model.moduleCode</h1>
 
-<h4>Module</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,32 +13,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="moduleCode" />
             <div class="form-group">
-                <label asp-for="moduleName" class="control-label"></label>
+                <label asp-for="moduleName" class="control-label">Module Name</label>
                 <input asp-for="moduleName" class="form-control" />
                 <span asp-validation-for="moduleName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="credits" class="control-label"></label>
+                <label asp-for="credits" class="control-label">Module Credits</label>
                 <input asp-for="credits" class="form-control" />
                 <span asp-validation-for="credits" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="classHoursPerWeek" class="control-label"></label>
+                <label asp-for="classHoursPerWeek" class="control-label">Class Hours Per Week</label>
                 <input asp-for="classHoursPerWeek" class="form-control" />
                 <span asp-validation-for="classHoursPerWeek" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HoursStudiedThisWeek" class="control-label"></label>
-                <input asp-for="HoursStudiedThisWeek" class="form-control" />
-                <span asp-validation-for="HoursStudiedThisWeek" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="semesterNumOfWeeks" class="control-label"></label>
+                <label asp-for="semesterNumOfWeeks" class="control-label">Number Of Weeks In the Semester</label>
                 <input asp-for="semesterNumOfWeeks" class="form-control" />
                 <span asp-validation-for="semesterNumOfWeeks" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="semesterStartDate" class="control-label"></label>
+                <label asp-for="semesterStartDate" class="control-label">Semester Start Date</label>
                 <input asp-for="semesterStartDate" class="form-control" />
                 <span asp-validation-for="semesterStartDate" class="text-danger"></span>
             </div>

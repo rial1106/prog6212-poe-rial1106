@@ -8,7 +8,7 @@
 </head>
 
 <div>
-    <h1>@Html.DisplayFor(model => model.moduleCode) Details</h1>
+    <h1>Details for @Html.DisplayFor(model => model.moduleCode)</h1>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -36,7 +36,7 @@
             @Html.DisplayFor(model => model.HoursStudiedThisWeek)
         </dd>
         <dt class="col-sm-2">
-           Recommended hours of studying.
+           Recommended Hours Of Studying.
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RecommendedStudyHours)
@@ -66,7 +66,7 @@
             animationEnabled: true,
             theme: "light2",
             title: {
-                text: "Number of hours spent on @Model.moduleCode per week."
+                text: "Number of hours spent studying for @Model.moduleCode per week."
             },
             axisY: {
                 title: "Hours Studied"
