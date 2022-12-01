@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using EntityFramework.Exceptions.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Study_Tracker.Data;
 using Study_Tracker.Models;
+using Module = Study_Tracker.Models.Module;
 
 namespace Study_Tracker.Controllers
 {
     public class ModulesController : Controller
     {
+        //private readonly User _user;
         private readonly Study_TrackerContext _context;
 
         public ModulesController(Study_TrackerContext context)
@@ -23,9 +29,9 @@ namespace Study_Tracker.Controllers
         // GET: Modules
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Module> modules = await _context.Module.Where(a => a.user.username == User.FindFirstValue(ClaimTypes.NameIdentifier)).Include("studyDates").ToListAsync();
-       
-            return View(modules);
+            List<Module> modules = await _context.Module.Where(a => a.user.username == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+
+			return View(modules);
         }
 
         // GET: Modules/Details/5
@@ -36,11 +42,28 @@ namespace Study_Tracker.Controllers
                 return NotFound();
             }
 
-            var @module = await _context.Module
+            var @module = await _context.Module.Include("studyDates")
                 .FirstOrDefaultAsync(m => m.moduleCode == id);
+
             if (@module == null)
             {
                 return NotFound();
+            }
+
+
+            if(module.studyDates != null)
+            {
+                List<StudyDate> dates = module.studyDates.OrderBy(o => o.date).ToList();
+
+                List<DataPoint> points = new List<DataPoint>();
+
+                foreach (var d in dates)
+                {
+                    DataPoint dp = new DataPoint(d.date, d.hoursStudied);
+                    points.Add(dp);
+                }
+
+                ViewBag.DataPoints = JsonConvert.SerializeObject(points);
             }
 
             return View(@module);
@@ -57,12 +80,23 @@ namespace Study_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("moduleCode,moduleName,credits,classHoursPerWeek,hoursStudiedToday,hoursStudiedThisWeek,semesterNumOfWeeks,semesterStartDate")] Module @module)
+        public async Task<IActionResult> Create([Bind("moduleCode,moduleName,credits,classHoursPerWeek,semesterNumOfWeeks,semesterStartDate")] Module @module)
         {
+            ModelState.Remove("user");
             if (ModelState.IsValid)
-            {
+            {     
+                User _user = await _context.User.FirstAsync(a => a.username == User.FindFirstValue(ClaimTypes.NameIdentifier));
+                @module.user = _user;
                 _context.Add(@module);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (UniqueConstraintException ex)
+                {
+                    ViewData["ValidateMessage"] = ex.Message;
+                    return View();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(@module);
@@ -89,7 +123,7 @@ namespace Study_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("moduleCode,moduleName,credits,classHoursPerWeek,hoursStudiedToday,hoursStudiedThisWeek,semesterNumOfWeeks,semesterStartDate")] Module @module)
+        public async Task<IActionResult> Edit(string id, [Bind("moduleCode,moduleName,credits,classHoursPerWeek,hoursStudiedThisWeek,semesterNumOfWeeks,semesterStartDate")] Module @module)
         {
             if (id != @module.moduleCode)
             {
@@ -159,6 +193,48 @@ namespace Study_Tracker.Controllers
         private bool ModuleExists(string id)
         {
           return _context.Module.Any(e => e.moduleCode == id);
+        }
+
+        public async Task<IActionResult> AddStudyTime(string id)
+        {
+            if (id == null || _context.Module == null)
+            {
+                return NotFound();
+            }
+
+            var @module = await _context.Module.FindAsync(id);
+            if (@module == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(@module);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddStudyTime(string id, [Bind("date,hoursStudied,module")] StudyDate studyDate)
+        {
+            if (id != @studyDate.module.moduleCode)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(studyDate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (UniqueConstraintException)
+                {
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(@studyDate);
         }
     }
 }

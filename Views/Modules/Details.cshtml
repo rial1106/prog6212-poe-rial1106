@@ -3,57 +3,88 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
+<head>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
 
 <div>
-    <h4>Module</h4>
+    <h1>@Html.DisplayFor(model => model.moduleCode) Details</h1>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.moduleName)
+            Module Name
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.moduleName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.credits)
+            Module Credits
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.credits)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.classHoursPerWeek)
+            Class Hours Per Week
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.classHoursPerWeek)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.hoursStudiedToday)
+            Hours Studied This Week
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.hoursStudiedToday)
+            @Html.DisplayFor(model => model.HoursStudiedThisWeek)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.hoursStudiedThisWeek)
+        <dt class="col-sm-2">
+           Recommended hours of studying.
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.hoursStudiedThisWeek)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RecommendedStudyHours)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.semesterNumOfWeeks)
+            Weeks in Semester
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.semesterNumOfWeeks)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.semesterStartDate)
+            Semester start date
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.semesterStartDate)
         </dd>
     </dl>
 </div>
+<br />
+<br />
+<div id="chartContainer" style="height: 350px; width: 80%;"></div>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            theme: "light2",
+            title: {
+                text: "Number of hours spent on @Model.moduleCode per week."
+            },
+            axisY: {
+                title: "Hours Studied"
+            },
+            data: [
+                {
+                    type: "column",
+                    xValueType: "dateTime",
+                    showInLegend: true, 
+		            legendMarkerColor: "grey",
+		            legendText: "Hours",
+                    dataPoints: @Html.Raw(ViewBag.DataPoints)
+                    }
+            ]
+        });
+        chart.render();
+    };
+</script>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.moduleCode">Edit</a> |
     <a asp-action="Index">Back to List</a>

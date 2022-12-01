@@ -1,12 +1,13 @@
 ﻿@model Study_Tracker.Models.Module
-
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Add Time Studied</h1>
 
 <h4>Module</h4>
+<hr />
+<h6>You have studied @Model.HoursStudiedThisWeek hours so far this week out of @Model.RecommendedStudyHours</h6>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,6 +34,11 @@
                 <span asp-validation-for="classHoursPerWeek" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="HoursStudiedThisWeek" class="control-label"></label>
+                <input asp-for="HoursStudiedThisWeek" class="form-control" />
+                <span asp-validation-for="HoursStudiedThisWeek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="semesterNumOfWeeks" class="control-label"></label>
                 <input asp-for="semesterNumOfWeeks" class="form-control" />
                 <span asp-validation-for="semesterNumOfWeeks" class="text-danger"></span>
@@ -48,13 +54,6 @@
         </form>
     </div>
 </div>
-
-@if (ViewData["ValidateMessage"] != null)
-{
-    <hr />
-    <label>@ViewData["ValidateMessage"]</label>
-    <hr />
-}
 
 <div>
     <a asp-action="Index">Back to List</a>
