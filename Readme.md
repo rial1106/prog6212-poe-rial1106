@@ -9,7 +9,7 @@ The program uses ASP.net core web application technology to allow you to access 
 2. Open the project in Visual Studio 2022.
 3. Build the project, this will install the required dependancies from nuget.
 
-**Optional
+### Optional
 Run the pre-compiled binaries located in the /bin and /debug folders.
 
 ## How to Use
