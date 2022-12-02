@@ -16,6 +16,11 @@
         <input type="email" placeholder="Email Address" asp-for="username"/>
         <input type="password" placeholder="Password" asp-for="password"/>
         <button type="submit">Login</button>
+        <br />
+        <p>
+            Don't have an account?
+            <a href="Accounts/Register">Register</a>
+        </p>
         @if(ViewData["ValidateMessage"] != null)
         {
             <br />
