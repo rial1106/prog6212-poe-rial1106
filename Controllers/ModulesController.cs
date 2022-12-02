@@ -205,24 +205,39 @@ namespace Study_Tracker.Controllers
                 return NotFound();
             }
 
+            var @module = await _context.Module.Include("studyDates")
+                .FirstOrDefaultAsync(m => m.moduleCode == id);
+            if (@module == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["ModuleHoursThisWeek"] = module.HoursStudiedThisWeek;
+            ViewData["ModuleRecommendedHours"] = module.RecommendedStudyHours;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddStudyTime(string id, [Bind("hoursStudied")] StudyDate studyDate)
+        {
+            if (id == null || _context.Module == null)
+            {
+                return NotFound();
+            }
+
             var @module = await _context.Module.FindAsync(id);
             if (@module == null)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("module");
+            ModelState.Remove("date");
 
-            return View(@module);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddStudyTime(string id, [Bind("date,hoursStudied,module")] StudyDate studyDate)
-        {
-            if (id != @studyDate.module.moduleCode)
-            {
-                return NotFound();
-            }
+            studyDate.module = module;
+            studyDate.date = DateTime.Now;
 
             if (ModelState.IsValid)
             {

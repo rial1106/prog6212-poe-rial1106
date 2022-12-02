@@ -1,50 +1,22 @@
-﻿@model Study_Tracker.Models.Module
+﻿@model Study_Tracker.Models.StudyDate
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Add Time Studied</h1>
 <hr />
-<h6>You have studied @Model.HoursStudiedThisWeek hours so far this week out of the @Model.RecommendedStudyHours recommended hours.</h6>
+<h3>
+    You have studied @ViewData["ModuleHoursThisWeek"] hours so far this week out of the @ViewData["ModuleRecommendedHours"] recommended hours.
+</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-controller="Modules" asp-action="AddStudyTime" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="moduleCode" class="control-label"></label>
-                <input asp-for="moduleCode" class="form-control" />
-                <span asp-validation-for="moduleCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="moduleName" class="control-label"></label>
-                <input asp-for="moduleName" class="form-control" />
-                <span asp-validation-for="moduleName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="credits" class="control-label"></label>
-                <input asp-for="credits" class="form-control" />
-                <span asp-validation-for="credits" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="classHoursPerWeek" class="control-label"></label>
-                <input asp-for="classHoursPerWeek" class="form-control" />
-                <span asp-validation-for="classHoursPerWeek" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoursStudiedThisWeek" class="control-label"></label>
-                <input asp-for="HoursStudiedThisWeek" class="form-control" />
-                <span asp-validation-for="HoursStudiedThisWeek" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="semesterNumOfWeeks" class="control-label"></label>
-                <input asp-for="semesterNumOfWeeks" class="form-control" />
-                <span asp-validation-for="semesterNumOfWeeks" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="semesterStartDate" class="control-label"></label>
-                <input asp-for="semesterStartDate" class="form-control" />
-                <span asp-validation-for="semesterStartDate" class="text-danger"></span>
+                <label asp-for="hoursStudied" class="control-label">How many hours did you study?</label>
+                <input asp-for="hoursStudied" class="form-control" />
+                <span asp-validation-for="hoursStudied" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
