@@ -1,15 +1,15 @@
-﻿#Study Tracker
+﻿# Study Tracker
 
 This program can help you keep track of how long you have studied for a module this year.
 You can view how long you have studied for a particular module as well as get a recommendation on how long you should spend studying.
 The program uses ASP.net core web application technology to allow you to access your data from anywhere.
 
-*Steps to Install
+* Steps to Install
 1. Clone the repository.
 2. Open the project in Visual Studio 2022.
 3. Build the project, this will install the required dependancies from nuget.
 
-**Optional
+** Optional
 Run the pre-compiled binaries located in the /bin and /debug folders.
 
 *How to Use
@@ -36,7 +36,7 @@ The recommended number of hours to study this week will be at the top of the pag
 
 ![Add Time Window](Screenshots/window-4.png)
 
-*License
+* License
 MIT License
 
 Copyright (c) [2022] [Rial Seebran]
