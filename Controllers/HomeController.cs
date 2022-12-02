@@ -30,11 +30,6 @@ namespace Study_Tracker.Controllers
             return View(modules);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
